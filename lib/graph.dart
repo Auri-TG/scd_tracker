@@ -96,7 +96,6 @@ class _GraphPageState extends State<GraphPage> {
   @override
   Widget build(BuildContext context) {
     final data = buildData();
-    final spots = buildSpots(data);
 
     return Scaffold(
       appBar: AppBar(title: Text("Your SCD Graph")),
