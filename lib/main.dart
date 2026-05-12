@@ -22,23 +22,20 @@ class _HomeWrapperState extends State<HomeWrapper> {
   final pages = [
     HomePage(),
     GraphPage(),
-    SettingsPage(),
   ];
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: pages[index],
-
-    BottomNavigationBar(
+      bottomNavigationBar: BottomNavigationBar(
         currentIndex: index,
         onTap: (i) => setState(() => index = i),
         items: [
           BottomNavigationBarItem(icon: Icon(Icons.today), label: "Today"),
           BottomNavigationBarItem(icon: Icon(Icons.show_chart), label: "Graph"),
-          BottomNavigationBarItem(icon: Icon(Icons.settings), label: "Settings"),
         ],
-      )
+      ),
     );
   }
 }
