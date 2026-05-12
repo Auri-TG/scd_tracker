@@ -77,6 +77,7 @@ class _GraphPageState extends State<GraphPage> {
           brokenSpots.add(
             FlSpot(i.toDouble(), lastValue?.toDouble() ?? 0),
         );
+        }
       }
       i++;
     });
