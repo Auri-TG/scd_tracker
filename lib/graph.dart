@@ -47,52 +47,43 @@ class _GraphPageState extends State<GraphPage> {
   }
 
   List<LineChartBarData> buildLines(Map<DateTime, int?> data) {
-    List<FlSpot> goodSpots = [];
-    List<FlSpot> brokenSpots = [];
+  List<FlSpot> currentSegment = [];
+  List<LineChartBarData> lines = [];
 
-    int i = 0;
-    int? lastValue;
+  int i = 0;
 
-    List<LineChartBarData> lines = [];
-
-    data.forEach((date, value) {
-      if (value != null) {
-        goodSpots.add(FlSpot(i.toDouble(), value.toDouble()));
-        lastValue = value;
-      } else {
-        // Break line segment
-        if (goodSpots.isNotEmpty) {
-          lines.add(LineChartBarData(
-            spots: List.from(goodSpots),
-            isCurved: true,
-            color: Colors.green,
-            barWidth: 3,
-            dotData: FlDotData(show: true),
-          ));
-          goodSpots.clear();
-        }
-
-        // Red segment marker (visual gap)
-        if (lastValue != null) {
-          brokenSpots.add(
-            FlSpot(i.toDouble(), lastValue?.toDouble() ?? 0),
-        );
-        }
+  data.forEach((date, value) {
+    if (value != null) {
+      currentSegment.add(
+        FlSpot(i.toDouble(), value.toDouble()),
+      );
+    } else {
+      if (currentSegment.isNotEmpty) {
+        lines.add(LineChartBarData(
+          spots: List.from(currentSegment),
+          isCurved: true,
+          color: Colors.green,
+          barWidth: 3,
+          dotData: FlDotData(show: true),
+        ));
+        currentSegment.clear();
       }
-      i++;
-    });
-
-    if (goodSpots.isNotEmpty) {
-      lines.add(LineChartBarData(
-        spots: goodSpots,
-        isCurved: true,
-        color: Colors.green,
-        barWidth: 3,
-        dotData: FlDotData(show: true),
-      ));
     }
+    i++;
+  });
 
-    return lines;
+  // Add last segment
+  if (currentSegment.isNotEmpty) {
+    lines.add(LineChartBarData(
+      spots: currentSegment,
+      isCurved: true,
+      color: Colors.green,
+      barWidth: 3,
+      dotData: FlDotData(show: true),
+    ));
+  }
+
+  return lines;
   }
 
   @override
