@@ -74,7 +74,8 @@ class _GraphPageState extends State<GraphPage> {
 
         // Red segment marker (visual gap)
         if (lastValue != null) {
-          brokenSpots.add(FlSpot(i.toDouble(), lastValue.toDouble()));
+          brokenSpots.add(
+            FlSpot(i.toDouble(), lastValue?.toDouble() ?? 0),
         }
       }
       i++;
